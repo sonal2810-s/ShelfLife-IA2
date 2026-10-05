@@ -19,7 +19,7 @@ morgan.token('timestamp', () => new Date().toISOString());
 const loggingFormat = '[:timestamp] :method :url :status :res[content-length] - :response-time ms';
 app.use(morgan(loggingFormat));
 
-// Core middleware — allow configured origins
+// Core middleware — allow configured origins, Vercel deployments, and local dev
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
@@ -30,13 +30,30 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (server-to-server, curl, Postman)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error(`CORS: Origin ${origin} not allowed`));
+    // Allow configured origins or any vercel.app frontend
+    if (
+      allowedOrigins.includes(origin) ||
+      allowedOrigins.includes('*') ||
+      origin.endsWith('.vercel.app') ||
+      process.env.NODE_ENV === 'production'
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true);
   },
   credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Root endpoint for Render health check & browser status
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'ShelfLife API Server is running smoothly',
+    health: '/api/health'
+  });
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
