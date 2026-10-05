@@ -10,9 +10,21 @@
 
 ShelfLife is a modern, full-stack college library management platform designed for librarians and administrative staff to manage **books**, **members**, and **borrowing records**. It was built strictly according to the **IA2 Full-Stack Web Development Exam Specification (50 Marks)**:
 
-- **Q1 — Backend (20 Marks):** Node.js + Express + MongoDB + Mongoose + JWT + Morgan
+- **GitHub Repository:** [https://github.com/sonal2810-s/ShelfLife-IA2](https://github.com/sonal2810-s/ShelfLife-IA2)
+- **Q1 — Backend (20 Marks):** Node.js + Express + MongoDB Atlas + Mongoose + JWT + Morgan
 - **Q2 — Frontend (20 Marks):** React + TypeScript + Vite + Tailwind CSS + Generic Components
 - **Q3 — System Design (10 Marks):** Scalable Multi-Campus Architecture (500 campuses, 2M members, 10× traffic spikes)
+
+---
+
+## 🌐 Public Hosting & Deployment Information
+
+| Layer | Platform | Deployment URL | Configuration Details |
+| :--- | :--- | :--- | :--- |
+| **GitHub Repo** | GitHub | [sonal2810-s/ShelfLife-IA2](https://github.com/sonal2810-s/ShelfLife-IA2) | `main` branch, full source code (no `.env`/secrets) |
+| **Frontend Web App** | Vercel | *Deploy via Vercel* | React 19 + TypeScript build (`VITE_API_URL`) |
+| **Backend REST API** | Render | *Deploy via Render* | Node.js + Express (`MONGODB_URI`, `JWT_SECRET`, `FRONTEND_URL`) |
+| **Database** | MongoDB Atlas | Cluster `myapp.moyhdqc.mongodb.net` | MongoDB Cloud Atlas database (`shelflife`) |
 
 ---
 
