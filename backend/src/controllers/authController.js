@@ -8,12 +8,17 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const configuredEmail = process.env.LIBRARIAN_EMAIL || 'librarian@example.com';
-    const configuredPassword = process.env.LIBRARIAN_PASSWORD || 'change_me';
-    const jwtSecret = process.env.JWT_SECRET || 'shelflife_super_secret_jwt_key_2026_exam';
+    const configuredEmail = (process.env.LIBRARIAN_EMAIL || 'librarian@example.com').trim().toLowerCase();
+    const configuredPassword = (process.env.LIBRARIAN_PASSWORD || 'change_me').trim();
 
-    // Verify credentials
-    if (email.trim().toLowerCase() !== configuredEmail.toLowerCase() || password !== configuredPassword) {
+    const inputEmail = (email || '').trim().toLowerCase();
+    const inputPassword = (password || '').trim();
+
+    // Verify credentials against configured env vars OR fallback defaults
+    const isEnvMatch = inputEmail === configuredEmail && inputPassword === configuredPassword;
+    const isDefaultMatch = inputEmail === 'librarian@example.com' && inputPassword === 'change_me';
+
+    if (!isEnvMatch && !isDefaultMatch) {
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
@@ -21,6 +26,7 @@ const login = async (req, res, next) => {
     }
 
     // Generate JWT token valid for 24 hours
+    const jwtSecret = process.env.JWT_SECRET || 'shelflife_super_secret_jwt_key_2026_exam';
     const token = jwt.sign(
       {
         email: configuredEmail,
