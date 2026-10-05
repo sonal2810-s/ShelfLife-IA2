@@ -1,0 +1,50 @@
+# ========================================
+# ShelfLife — Root .gitignore
+# ========================================
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment files — NEVER commit secrets
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test output / scratch
+test-full.js
+test-backend.js
+coverage/
+
+# Editor & OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# MongoDB-memory-server binary cache
+.cache-mongodb-memory-server/
+
+# TypeScript
+*.tsbuildinfo

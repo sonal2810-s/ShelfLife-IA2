@@ -1,0 +1,14 @@
+# ========================================
+# ShelfLife Backend — .gitignore
+# ========================================
+
+node_modules/
+.env
+.env.local
+logs/
+*.log
+npm-debug.log*
+.cache-mongodb-memory-server/
+coverage/
+test-full.js
+test-backend.js
