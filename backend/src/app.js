@@ -60,6 +60,7 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'ShelfLife API is running smoothly',
+    version: '1.0.2',
     timestamp: new Date().toISOString()
   });
 });
